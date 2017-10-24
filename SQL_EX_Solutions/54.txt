@@ -1,0 +1,11 @@
+SELECT CAST (AVG(cast(all_ships.numGuns as numeric(4,2))) AS NUMERIC(4,2)) avg_guns
+FROM (SELECT s.name, c.numguns
+FROM ships s
+JOIN classes c
+ON s.class = c.class
+WHERE c.type = 'bb'
+union
+SELECT o.ship, c.numguns
+from outcomes o, classes c
+where o.ship = c.class
+AND c.type = 'bb') all_ships

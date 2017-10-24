@@ -1,0 +1,4 @@
+SELECT pc.model, pc.speed, pc.hd
+FROM product pr
+JOIN pc ON pr.model = pc.model 
+WHERE pc.price < 500

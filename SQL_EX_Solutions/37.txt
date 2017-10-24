@@ -1,0 +1,17 @@
+select class
+from
+(
+select * 
+from 
+(
+select class, name
+from ships
+UNION ALL
+select outcomes.ship, outcomes.ship
+from outcomes, classes
+where outcomes.ship = classes.class
+) t
+group by class, name
+) tt
+group by class
+having count(1) = 1

@@ -1,0 +1,12 @@
+select pr.maker, pr.model, pr.type
+from product pr
+where pr.model not in (
+select top 3 pr.model
+from product pr
+order by pr.model asc
+)
+and pr.model not in (
+select top 3 pr.model
+from product pr
+order by pr.model desc
+)

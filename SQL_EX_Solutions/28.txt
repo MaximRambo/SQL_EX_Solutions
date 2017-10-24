@@ -1,0 +1,6 @@
+SELECT COUNT(*) 
+FROM (
+SELECT pr.maker
+FROM product pr
+GROUP BY pr.maker
+HAVING COUNT(model) = 1) as A

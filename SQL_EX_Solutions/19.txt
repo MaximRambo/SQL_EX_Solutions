@@ -1,0 +1,5 @@
+SELECT pr.maker, AVG(lp.screen)
+FROM product pr
+JOIN laptop lp
+ON pr.model = lp.model
+GROUP BY pr.maker

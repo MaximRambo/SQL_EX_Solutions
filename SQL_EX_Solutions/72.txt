@@ -1,0 +1,22 @@
+with sel1 as 
+(
+select id_psg, count(id_psg) as trip_Qty
+from pass_in_trip pit
+where
+(
+select count(id_comp) from
+(
+select id_comp
+from trip tr2, pass_in_trip pit2
+where pit2.id_psg = pit.id_psg 
+and tr2.trip_no = pit2.trip_no
+group by tr2.id_comp 
+) companies
+) = 1
+group by id_psg
+)
+
+select name, trip_Qty
+from sel1, passenger
+where sel1.id_psg = passenger.id_psg
+and sel1.trip_Qty = (select max(trip_Qty) from sel1)

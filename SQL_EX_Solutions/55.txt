@@ -1,0 +1,8 @@
+select cl.class, MIN(sh.launched)
+FROM classes cl, ships sh
+WHERE cl.class = sh.class
+GROUP BY cl.class
+UNION
+SELECT c.class, null
+FROM classes c 
+WHERE ( SELECT COUNT(1) from ships s WHERE c.class = s.class) = 0

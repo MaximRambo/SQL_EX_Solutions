@@ -1,0 +1,6 @@
+SELECT out.ship
+FROM outcomes out
+JOIN battles btl
+ON out.battle = btl.name
+WHERE out.battle = 'North Atlantic'
+AND out.result = 'sunk'

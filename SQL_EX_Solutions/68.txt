@@ -1,0 +1,18 @@
+with Route (route, r_count) as
+(
+select case 
+when town_from <= town_to
+then town_from + town_to
+else town_to + town_from
+end route,
+count(*) as r_count from trip
+group by case
+when town_from <= town_to
+then town_from + town_to
+else town_to + town_from
+end
+)
+
+select count(*) as qty
+from Route
+where r_count = (select max(r_count) from Route)

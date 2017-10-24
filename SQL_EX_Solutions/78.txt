@@ -1,0 +1,4 @@
+Select name as battle,
+convert(varchar, dateadd(day, 1, eomonth(date,-1)), 23) as firstD, 
+convert(varchar, cast(eomonth(date) as datetime), 23) as lastD
+from battles

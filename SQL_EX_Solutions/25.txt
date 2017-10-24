@@ -1,0 +1,16 @@
+SELECT DISTINCT maker
+FROM product, pc
+WHERE product.model = pc.model
+AND ram = 
+(SELECT min(ram)
+FROM pc)
+AND speed = 
+(SELECT max(speed)
+FROM pc
+WHERE ram = 
+(SELECT min(ram)
+FROM pc))
+AND maker IN
+(SELECT maker
+FROM product
+where type = 'printer')

@@ -1,0 +1,4 @@
+SELECT DISTINCT pr.model, printer.price
+FROM product pr
+JOIN printer ON pr.model = printer.model
+WHERE printer.price = (SELECT MAX(printer.price) FROM printer)

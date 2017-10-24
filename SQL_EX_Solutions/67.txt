@@ -1,0 +1,11 @@
+with Route (route, r_count) as
+(
+select route_no.route, count(route_no.trip_no) as r_count from
+(select town_from+town_to route, trip_no 
+from trip) route_no
+group by route_no.route
+)
+
+select count(r_count) as qty
+from Route
+where r_count = (select max(r_count) from Route)

@@ -1,0 +1,16 @@
+select distinct s2.ship
+from
+(
+select ship, date
+from outcomes o1, battles b1
+where o1.battle = b1.name
+and o1.result = 'damaged'
+) s1
+,
+(
+select ship, date
+from outcomes o2, battles b2
+where o2.battle = b2.name
+) s2
+where s1.ship = s2.ship
+and s1.date < s2.date

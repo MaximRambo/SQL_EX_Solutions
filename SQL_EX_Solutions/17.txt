@@ -1,0 +1,5 @@
+SELECT DISTINCT pr.type, lp.model, lp.speed
+FROM product pr
+JOIN laptop lp
+ON pr.model = lp.model
+WHERE lp.speed < ALL (SELECT speed from PC)

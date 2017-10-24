@@ -1,0 +1,19 @@
+with sel1 as
+(
+select cl.class
+from outcomes ou, ships sh, classes cl
+where result = 'sunk'
+and ou.ship = sh.name
+and sh.class = cl.class
+
+union all
+
+select cl.class
+from outcomes ou, classes cl
+where result = 'sunk'
+and ou.ship = cl.class
+and ou.ship not in (select name from ships)
+)
+
+select cl1.class, (select count(sel1.class) from sel1 where cl1.class = sel1.class)
+from classes cl1

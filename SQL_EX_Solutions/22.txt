@@ -1,0 +1,4 @@
+SELECT DISTINCT pc.speed, AVG(pc.price)
+FROM pc
+WHERE pc.speed > 600
+GROUP BY pc.speed

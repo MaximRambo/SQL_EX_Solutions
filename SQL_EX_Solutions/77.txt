@@ -1,0 +1,12 @@
+with sel1 as (Select COUNT(distinct tr.trip_no) as Qty, pit.[date]
+from trip tr
+join pass_in_trip pit
+on tr.trip_no = pit.trip_no
+where tr.town_from = 'Rostov'
+group by pit.[date])
+
+select sel1.Qty, sel1.date
+from sel1
+where sel1.Qty in (
+select MAX(sel1.Qty) as Qty
+from sel1)

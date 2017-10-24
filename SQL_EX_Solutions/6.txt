@@ -1,0 +1,5 @@
+SELECT DISTINCT pr.maker, lp.speed
+FROM product pr
+JOIN laptop lp
+ON pr.model = lp.model
+WHERE lp.hd >= 10

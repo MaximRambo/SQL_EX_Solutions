@@ -1,0 +1,3 @@
+SELECT AVG(lp.speed) as Avg_speed
+FROM laptop lp
+WHERE lp.price > 1000

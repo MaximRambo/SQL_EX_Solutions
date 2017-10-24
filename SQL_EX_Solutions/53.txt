@@ -1,0 +1,3 @@
+SELECT CAST(AVG(numguns+0.0) as numeric(10,2))
+from classes
+where type = 'bb'

@@ -1,0 +1,14 @@
+SELECT p.model, price
+FROM product p, pc
+WHERE p.model = pc.model
+AND maker = 'B'
+UNION
+SELECT p.model, price
+FROM product p, printer pn
+WHERE p.model = pn.model
+AND maker = 'B'
+UNION
+SELECT p.model, price
+FROM product p, laptop lp
+WHERE p.model = lp.model
+AND maker = 'B'

@@ -1,0 +1,11 @@
+SELECT DISTINCT pr.maker
+FROM product pr
+JOIN pc
+ON pr.model = pc.model
+WHERE pc.speed >= 750
+INTERSECT
+SELECT DISTINCT pr.maker
+FROM product pr
+JOIN laptop lp
+ON pr.model = lp.model
+WHERE lp.speed >= 750

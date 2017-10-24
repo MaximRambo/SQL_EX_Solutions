@@ -1,0 +1,30 @@
+select name
+from ships
+where class in (select * from 
+(
+select c1.class
+from classes c1
+where c1.numguns >= ALL
+(
+select numguns
+from classes c2
+where c1.displacement = c2.displacement
+and (select count(1) from ships where ships.class = c2.class) + (select count(1) from outcomes where outcomes.ship = c2.class) >0
+) 
+) t1)
+union
+select ship
+from outcomes
+where  ship in (select * from
+(
+select c1.class
+from classes c1
+where c1.numguns >= ALL
+(
+select numguns
+from classes c2
+where c1.displacement = c2.displacement
+and (select count(1) from ships where ships.class = c2.class) + (select count(1) from outcomes where outcomes.ship = c2.class) >0
+)
+) t2
+)

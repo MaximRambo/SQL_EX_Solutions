@@ -1,0 +1,6 @@
+select country, class from Classes
+where country = ALL 
+(
+select country from Classes 
+where country='Russia'
+)

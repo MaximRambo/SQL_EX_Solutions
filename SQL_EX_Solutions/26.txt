@@ -1,0 +1,14 @@
+SELECT AVG(SQ.price) AS AVG_Price
+FROM (
+SELECT price
+FROM pc
+JOIN product pr
+ON pc.model = pr.model
+WHERE pr.maker = 'A'
+UNION ALL
+SELECT price
+FROM laptop lp
+JOIN product pr 
+ON lp.model = pr.model
+WHERE pr.maker = 'A'
+) SQ

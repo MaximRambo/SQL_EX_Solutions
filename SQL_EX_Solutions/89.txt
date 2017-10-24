@@ -1,0 +1,17 @@
+select pr.maker, count(pr.model) as qty
+from product pr
+group by pr.maker
+having count(pr.model) in 
+(
+select min(min1.qty) as min_max
+from
+(select pr.maker, count(pr.model) as qty
+from product pr
+group by pr.maker) min1
+union
+select max(max1.qty)
+from
+(select pr.maker, count(pr.model) as qty
+from product pr
+group by pr.maker) max1
+)

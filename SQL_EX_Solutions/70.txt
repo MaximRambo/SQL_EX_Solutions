@@ -1,0 +1,27 @@
+select distinct f1.name
+from 
+
+(select name, ship, country
+from
+(select b.name, o.ship
+from battles b
+join outcomes o
+on b.name = o.battle) battle1
+join
+(select t1.cl, t1.nm, cl1.country
+from (
+select distinct cl, nm
+from
+(
+select class cl, name nm
+from ships
+UNION ALL
+select outcomes.ship, outcomes.ship
+from outcomes, classes
+where outcomes.ship = classes.class
+) t ) t1
+left join classes cl1
+on t1.cl = cl1.class) country1
+on battle1.ship = country1.nm) f1
+group by f1.name, f1.country
+having count(f1.country) >=3

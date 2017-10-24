@@ -1,0 +1,23 @@
+with RN2_set as (select trip_no, row_number () over (order by trip_no asc) as RN2
+from 
+(
+select trip_no
+from (
+select trip_no, row_number () over (order by trip_no asc) as RN
+from trip ) a1
+where RN between 1 and 3
+union
+select trip_no
+from (
+select trip_no, row_number () over (order by trip_no desc) as RN
+from trip ) a1
+where RN between 1 and 3
+) a2) 
+
+select 
+(select r.trip_no from RN2_set r where r.RN2 = 1) as min1,
+(select r.trip_no from RN2_set r where r.RN2 = 2) as min2,
+(select r.trip_no from RN2_set r where r.RN2 = 3) as min3,
+(select r.trip_no from RN2_set r where r.RN2 = 4) as max3,
+(select r.trip_no from RN2_set r where r.RN2 = 5) as max2,
+(select r.trip_no from RN2_set r where r.RN2 = 6) as max1

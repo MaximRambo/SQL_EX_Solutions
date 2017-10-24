@@ -1,0 +1,22 @@
+WITH MAX_PRICE AS
+(
+SELECT MAX(SQ.price) as 'price'
+FROM (
+SELECT price FROM pc
+UNION
+SELECT price FROM laptop
+UNION
+SELECT price FROM printer
+) AS SQ
+)
+
+SELECT SQMOD.model
+FROM (
+SELECT model, price FROM pc
+UNION
+SELECT model, price FROM laptop
+UNION 
+SELECT model, price FROM printer
+) SQMOD
+JOIN MAX_PRICE SQPRICE
+ON SQMOD.price = SQPRICE.price

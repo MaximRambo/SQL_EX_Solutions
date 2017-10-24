@@ -1,0 +1,19 @@
+select distinct country, b.name
+from classes c, battles b
+where 
+(
+select count(1)
+from 
+(
+select c.country, o.battle
+from classes c, outcomes o
+where c.class = o.ship
+union
+select c.country, o.battle
+from classes c, ships s, outcomes o
+where c.class = s.class
+and s.name = o.ship
+) t
+where t.country = c.country
+and t.battle = b.name
+) = 0

@@ -1,0 +1,10 @@
+select class, 'bc'+'-'+convert(varchar(3), rn) as num
+from (
+select 
+cl.class, 
+cl.numguns, 
+row_number () over (partition by cl.class order by cl.class) as rn
+from classes cl
+cross join classes cl2
+where cl.type = 'bc') a
+where rn <= numguns

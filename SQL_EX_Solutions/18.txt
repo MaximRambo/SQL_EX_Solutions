@@ -1,0 +1,9 @@
+SELECT DISTINCT pr.maker, pt.price
+FROM product pr
+JOIN printer pt
+ON pr.model = pt.model
+WHERE pt.price = (
+SELECT MIN(price) AS [price]
+FROM printer pt
+WHERE pt.color = 'y') 
+AND pt.color = 'y'

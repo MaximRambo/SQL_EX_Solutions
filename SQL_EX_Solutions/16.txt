@@ -1,0 +1,5 @@
+SELECT DISTINCT a.model as MODEL_BIG, b.model as MODEL_LOW, a.speed, a.ram
+FROM pc as a, pc as b
+WHERE a.speed = b.speed
+AND a.ram = b.ram
+AND a.model > b.model

@@ -1,0 +1,5 @@
+SELECT AVG(pc.speed) as Avg_speed
+FROM pc
+JOIN product as pr
+ON pc.model = pr.model
+WHERE pr.maker = 'A'

@@ -1,0 +1,14 @@
+select t1.point, t1.date, inc, out
+from
+(
+select distinct point, date 
+from income_o
+Union
+select distinct point, date
+from outcome_o
+)
+as t1
+left join income_o ON t1.point = income_o.point
+and t1.date = income_o.date
+left join outcome_o ON t1.point = outcome_o.point
+and t1.date = outcome_o.date

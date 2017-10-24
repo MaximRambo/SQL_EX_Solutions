@@ -1,0 +1,10 @@
+select 
+(
+(select sum(inc.inc)
+from income_o inc
+where date < '04/15/01')
+-
+(select sum(out.out)
+from outcome_o out
+where date < '04/15/01')
+) as Remain

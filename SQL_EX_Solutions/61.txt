@@ -1,0 +1,9 @@
+select case 
+when (select count(1) from income_o) = 0 
+then 0
+when (select count(1) from outcome_o) = 0 
+then b.sum 
+else b.sum - a.sum end as Remain
+from (select sum(out) sum 
+from outcome_o) a, 
+(select sum(inc) sum from income_o) b

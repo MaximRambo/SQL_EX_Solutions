@@ -1,0 +1,7 @@
+SELECT classes.class as name
+FROM classes, ships
+WHERE classes.class = ships.name
+union
+SELECT ship as name
+from outcomes, classes
+where outcomes.ship = classes.class

@@ -1,0 +1,9 @@
+Select name
+from passenger
+where id_psg IN 
+(
+select distinct id_psg
+from pass_in_trip
+group by id_psg, place
+having count(1) >1
+)

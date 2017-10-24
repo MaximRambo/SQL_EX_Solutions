@@ -1,0 +1,9 @@
+SELECT classes.class
+FROM classes, outcomes
+WHERE classes.class = outcomes.ship
+AND result = 'sunk'
+union
+SELECT class
+from outcomes, ships
+where outcomes.ship = ships.name
+and result = 'sunk'

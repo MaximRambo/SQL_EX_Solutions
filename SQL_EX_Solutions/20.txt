@@ -1,0 +1,5 @@
+SELECT DISTINCT pr.maker, COUNT(pr.model) AS Count_Model
+FROM product pr
+WHERE pr.type = 'PC'
+GROUP BY pr.maker
+HAVING COUNT(pr.model) >=3

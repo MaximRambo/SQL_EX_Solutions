@@ -1,0 +1,8 @@
+select 
+maker, 
+model,
+row_number() over (order by maker asc, model asc) as A,
+dense_rank() over (order by maker) as B,
+rank() over (order by maker) as C,
+count(model) over (order by maker) as D
+from product

@@ -1,0 +1,13 @@
+select point, date,
+(select sum(out) from outcome o where o.point = t1.point and o.date = t1.date),
+(select sum(inc) from income i where i.point = t1.point and i.date = t1.date)
+
+from
+(
+select distinct point, date 
+from income
+Union
+select distinct point, date
+from outcome
+)
+as t1

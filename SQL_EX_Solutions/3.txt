@@ -1,0 +1,5 @@
+SELECT lp.model, lp.ram, lp.screen
+FROM product pr
+JOIN laptop lp 
+ON pr.model = lp.model
+WHERE lp.price > 1000
