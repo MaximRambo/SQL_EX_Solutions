@@ -1,0 +1,24 @@
+select case_set_up.maker
+from
+    (
+    select case
+    when (final_set_up.type_count = 1 and final_set_up.type = 'Printer')
+    or   (final_set_up.type_count = 1 and final_set_up.type = 'PC' and final_set_up.model_count >= 3)
+    then final_set_up.maker 
+    else NULL
+    end as maker
+    from
+        (
+        select set_up.maker, set_up.type, set_up.model_count, 
+        count (*) over (partition by set_up.maker order by set_up.maker) as type_count
+        from
+            (
+            select distinct
+            pr.maker,
+            pr.type, 
+            count (*) over (partition by pr.maker, pr.type order by pr.maker) as model_count
+            from product pr
+            ) set_up
+        ) final_set_up
+    ) case_set_up
+where case_set_up.maker is not null

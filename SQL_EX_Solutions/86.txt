@@ -1,0 +1,33 @@
+select  maker,
+        case
+        when type3 is not null
+        then types1+'/'+type3
+        else types1
+        end as types
+from    (
+        select maker, 
+        case
+        when type2 is null and type3 is null
+        then type1
+        else (type1+'/'+type2)
+        end as types1, type3
+        from    (
+                select  maker, 
+                        type1, 
+                        type2, 
+                        type3, 
+                        row_number() over (partition by maker order by maker) as RN
+                from    (
+                        select  set_up.maker, 
+                                set_up.type as type1, 
+                                lead (set_up.type, 1, null) over (partition by set_up.maker order by set_up.maker) as type2,
+                                lead (set_up.type, 2, null) over (partition by set_up.maker order by set_up.maker) as type3
+                        from    (
+                                select  distinct pr.maker, 
+                                        pr.type as type
+                                from product pr
+                                ) set_up
+                        ) final_set_up
+                ) last_set_up
+        where RN = 1
+        ) type3_set_up

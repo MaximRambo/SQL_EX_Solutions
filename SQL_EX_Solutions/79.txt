@@ -1,0 +1,14 @@
+select ps.name, minutes_counts.minutes
+from
+(
+select 
+ps.ID_psg, 
+sum((datediff(minute, time_out, time_in)+1440)%1440) as minutes,
+max(sum((datediff(minute, time_out, time_in)+1440)%1440)) over() as max_minutes
+from pass_in_trip ps
+join trip tr on ps.trip_no = tr.trip_no
+group by ps.ID_psg
+) as minutes_counts
+join passenger ps
+on ps.ID_psg = minutes_counts.ID_psg
+where minutes_counts.minutes = minutes_counts.max_minutes

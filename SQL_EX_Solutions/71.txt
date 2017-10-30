@@ -1,0 +1,12 @@
+select mods_count.maker
+from
+(
+select distinct
+pr.maker,  
+count(pr.model) over (partition by pr.maker order by pr.maker) as PR_mod,
+count(pc.model) over (partition by pr.maker order by pr.maker) as PC_mod
+from product pr
+full join pc on pr.model = pc.model
+where type = 'PC'
+) mods_count
+where mods_count.PR_mod - mods_count.PC_mod = 0

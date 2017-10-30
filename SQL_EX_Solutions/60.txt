@@ -1,0 +1,18 @@
+select 
+inc1.p1 as num, 
+inc1.s1-(case when out1.s1 is null then 0 else out1.s1 end) as Remain
+from
+(
+select point p1, sum(inc) s1
+from income_o
+where date < '2001-04-15'
+group by point
+) inc1
+left join
+(
+select point p1, sum(out) s1
+from outcome_o
+where date < '2001-04-15'
+group by point
+) out1
+on inc1.p1 = out1.p1

@@ -1,0 +1,6 @@
+select count(*) over (order by init_cut.makercount desc, init_cut.maker, init_cut.model) no, init_cut.maker, init_cut.model
+from 
+(
+select count(*) over (partition by maker) makercount, pr.maker, pr.model
+from product pr
+) init_cut

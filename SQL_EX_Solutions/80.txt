@@ -1,0 +1,15 @@
+select distinct pr.maker
+from product pr
+except
+select distinct absent_pc.maker
+from 
+(
+select 
+pr.maker,  
+count(pr.model) over (partition by pr.maker order by pr.maker) as PR_mod,
+count(pc.model) over (partition by pr.maker order by pr.maker) as PC_mod
+from product pr
+full join pc on pr.model = pc.model
+where type = 'PC'
+) absent_pc
+where absent_pc.PR_mod - absent_pc.PC_mod >0
